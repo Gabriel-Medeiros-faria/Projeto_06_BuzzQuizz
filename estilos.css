@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+body {
+   font-family: 'Roboto', sans-serif;;
+}
+
+header {
+    color: white;
+    font-weight: 700;
+    font-size: 37px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 69px;
+    background-color: #Ec362d;
+}
+.main {
+    width: 100%;
+}
+
+.quizzUsuario {
+    width: 1051px;
+    height: 181px;
+    border: 2px  dotted #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    margin: 0 auto;
+    margin-top: 146px;
+    margin-bottom: 77px
+}
+
+.criarQuizz {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 151px;
+    height: 40px;
+    color: #Ec362d;
+    border: 1px dotted #Ec362d;
+    border-radius: 50px;
+    font-size: 21px;
+    margin-top: 34px;
+}
+
+.quizzServidor {
+    width: 1051px;
+    margin: 0 auto;
+}
