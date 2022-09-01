@@ -22,7 +22,7 @@ header {
 }
 
 .quizzUsuario {
-    width: 1051px;
+    width: 56%;
     height: 181px;
     border: 2px  dotted #ccc;
     display: flex;
@@ -31,7 +31,7 @@ header {
     justify-content: center;
     border-radius: 50px;
     margin: 0 auto;
-    margin-top: 146px;
+    margin-top: 77px;
     margin-bottom: 77px
 }
 
@@ -48,11 +48,14 @@ header {
     margin-top: 34px;
 }
 
+.esconder {
+    display: none; }
+/*-------------TELA 1----------------*/
+
 .quizzServidor {
     width: 1051px;
     margin: 0 auto;
 }
-
 
 
 .conteudoTela31 ,.conteudoTela32 ,.conteudoTela33 ,.conteudoTela34{
@@ -117,4 +120,38 @@ header {
     display: none;
 }
 
+.quizzServidor p{
+    font-weight: 700;
+}
+li{
+    position: relative;
+    flex-wrap: wrap;
+}
+ul{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+li img{
+    
+    background-image: linear-gradient(to top, black);
+    width: 340px;
+    height: 181px;
+    border-radius: 5px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+.texto-imagem{
+    color: #FFFFFF;
+    font-weight: 400;
+    font-size: 19px;
+    width: 340px;
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    flex-wrap: wrap;
+}
 
+.pergTitulo {
+    align-self: flex-start;
+}

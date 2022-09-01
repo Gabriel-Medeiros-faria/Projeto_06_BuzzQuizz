@@ -1,3 +1,4 @@
+
 let criarTituloQuizz;
 let criarImgQuizz;
 let criarqtdPerguntasQuizz;
@@ -5,6 +6,14 @@ let criarqtdNiveisQuizz;
 let qtdPerguntas;
 let qtdNiveis;
 let questions = [];
+
+function tela3() {
+    let main = document.querySelector('.main');
+    main.classList.add('esconder');
+
+    let tela3 = document.querySelector('.tela3')
+    tela3.classList.remove('esconder');
+}
 
 function armazenaDadosQuizz() {
     criarTituloQuizz = document.querySelector('.tituloQuizz').value;
@@ -43,8 +52,9 @@ function pagina32() {
 
     for (let i = 0; i < criarqtdPerguntasQuizz; i++) {
         elemento1.innerHTML += `
+        <p class="pergTitulo">Pergunta ${i+1} <img class="" src="imgTela2/Vector.png" alt=""></p>
          <div class="perguntas">
-        <p>Pergunta ${i}</p>
+        
         <input class="criarPergunta${i}" placeholder='    Texto da pergunta' type="text">
         <input class="criarCorPergunta${i}" placeholder='    Cor de fundo da pergunta' type="text">
     </div>
@@ -194,3 +204,49 @@ function reloadPage() {
     location.reload();
 }
 
+
+
+
+
+let quizzes
+let objetoCompleto
+
+function obterQuizzesServidor(){
+    let promessa = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes')
+    promessa.then(renderizarQuizzes)
+}
+obterQuizzesServidor()
+
+function renderizarQuizzes(resposta){
+    console.log(resposta.data)
+    quizzes = resposta.data
+
+    objetoCompleto = resposta
+
+
+
+    let item = document.querySelector('ul')
+
+    for(i=0;i<quizzes.length;i++){
+
+        item.innerHTML+= `<li onclick="segundaTela(this)">
+        <div class="tela-preta"></div>
+        <div class="card-quizz">
+            <img src="${quizzes[i].image}">
+            <div class="texto-imagem">
+            ${quizzes[i].title} 
+            </div>
+        </div>
+    </li>`
+
+    }
+}
+
+function segundaTela(){
+
+
+    objetoCompleto  //essa variável está com o objeto completinho para você usar e também ja está no onclick, quando clicar em algum quizz, vai executar essa função.
+    console.log(objetoCompleto)
+
+
+}
