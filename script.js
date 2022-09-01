@@ -52,8 +52,8 @@ function pagina32() {
 
     for (let i = 0; i < criarqtdPerguntasQuizz; i++) {
         elemento1.innerHTML += `
-        <p class="pergTitulo">Pergunta ${i+1} <img class="" src="imgTela2/Vector.png" alt=""></p>
-         <div class="perguntas">
+        <div class="pergTitulo">Pergunta ${i+1} <img class="" src="imgTela2/Vector.png" alt=""></div>
+        <div class="perguntas">
         
         <input class="criarPergunta${i}" placeholder='    Texto da pergunta' type="text">
         <input class="criarCorPergunta${i}" placeholder='    Cor de fundo da pergunta' type="text">
