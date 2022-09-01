@@ -59,7 +59,7 @@ header {
 }
 li{
     position: relative;
-    
+    flex-wrap: wrap;
 }
 ul{
     display: flex;
@@ -73,6 +73,7 @@ li img{
     height: 181px;
     border-radius: 5px;
     margin-top: 12px;
+    flex-wrap: wrap;
 }
 .texto-imagem{
     color: #FFFFFF;
@@ -82,4 +83,5 @@ li img{
     position: absolute;
     bottom: 15px;
     left: 20px;
+    flex-wrap: wrap;
 }
