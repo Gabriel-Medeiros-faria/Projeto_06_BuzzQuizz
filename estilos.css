@@ -14,6 +14,8 @@ header {
     width: 100%;
     height: 69px;
     background-color: #Ec362d;
+    box-shadow: 0px 4px rgba(0,0,0, 0.25);
+    border-radius: 4px;
 }
 .main {
     width: 100%;
@@ -50,3 +52,69 @@ header {
     width: 1051px;
     margin: 0 auto;
 }
+
+
+
+.conteudoTela31 ,.conteudoTela32 ,.conteudoTela33 ,.conteudoTela34{
+    width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.prosseguirPerguntas, .prosseguirNiveis, .acessarQuizz, .finalizarQuizz {
+    margin-top: 81px;
+    margin-bottom: 20px;
+}
+
+.tela3 p {
+    font-weight: 700;
+    font-size: 23px;
+    margin-top: 35px;
+    margin-bottom: 27px;
+}
+.tela3 input {
+    width: 564px;
+    height: 46px;
+    margin: 1% 0;
+    border: 1px solid #D1D1D1;
+    border-radius: 5px;
+    font-size: 19px;
+    font-style: italic;
+    font-weight: 400;
+    overflow: hidden;
+}
+
+.tela3 input::placeholder {
+    color: #bababa;
+}
+
+.tela3 .inputs {
+    margin-bottom: 85px;
+}
+
+.tela3 .prosseguirPerguntas, .tela3 .prosseguirNiveis, .tela3 .acessarQuizz, .tela3 .finalizarQuizz {
+    color: white;
+    background-color: #Ec362d;
+    width: 367px;
+    height: 54px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.voltarHome {
+    margin-top: 40px;
+    font-size: 21px;
+    color: #818181;
+}
+
+.esconder {
+    display: none;
+}
+
+

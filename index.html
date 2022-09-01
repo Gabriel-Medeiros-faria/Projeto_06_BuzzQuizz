@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,23 +9,73 @@
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="estilos.css">
 </head>
-<body>
-    <header> BuzzQuizz </header>
 
-    <div class="main">
-        <div class="quizzUsuario">
+<body>
+    <header class="esconder"> BuzzQuizz </header>
+
+    <div class="main" class="esconder">
+        <div class="quizzUsuario esconder">
             <div>Você ainda não criou nenhum Quizz ainda</div>
             <div class="criarQuizz">Criar</div>
         </div>
 
-        <div class="quizzServidor">
+        <div class="quizzServidor esconder">
             <p>Todos os Quizzes</p>
             <div class="quizzesServidor">
-                
+
             </div>
         </div>
     </div>
+
     
+    <!-- Página de criação do Quizz -->
+    <div class="tela3">
+        <header> BuzzQuizz </header>
+
+        <!-- Informações básicas do Quizz -->
+
+        <div class="conteudoTela31">
+            <p> Comece pelo começo</p>
+            <div class="inputs">
+                <input class="tituloQuizz" placeholder='    Título do seu Quizz' type="text">
+                <input class="imagemQuizz" placeholder='    URL da imagem do seu Quizz' type="text">
+                <input class="qtdPerguntas" placeholder='    Quantidade de perguntas do Quizz' type="text">
+                <input class="qtdNiveis" placeholder='    Quantidade de níveis do Quizz' type="text">
+            </div>
+            <div class="prosseguirPerguntas" onclick="armazenaDadosQuizz()">
+                Prosseguir para criar as perguntas
+            </div>
+        </div>
+
+
+         <!-- Perguntas do Quizz -->
+        <div class="conteudoTela32 esconder">
+            <p> Crie suas perguntas</p>
+
+        </div>
+
+        <!-- Níveis do Quizz -->
+        <div class="conteudoTela33 esconder">
+            <p> Agora, decida os níveis</p>
+
+        </div>
+
+         <!-- Tela Quizz Pronto!!! -->
+        <div class="conteudoTela34 esconder">
+            <p> Seu quizz está pronto!</p>
+            
+            <div class="acessarQuizz">
+                AcessarQuizz
+            </div>
+
+            <div class="voltarHome" onclick="reloadPage()">Voltar para home</div>
+        </div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
