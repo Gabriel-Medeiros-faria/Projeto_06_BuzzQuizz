@@ -17,7 +17,7 @@ function tela3() {
 
 function armazenaDadosQuizz() {
     criarTituloQuizz = document.querySelector('.tituloQuizz').value;
-    criarImgQuizz = document.querySelector('.imagemQuizz').value;
+    criarImgQuizz = document.querySelector('.imagem1Quizz').value;
     criarqtdPerguntasQuizz = document.querySelector('.qtdPerguntas').value;
     criarqtdNiveisQuizz = document.querySelector('.qtdNiveis').value;
 
@@ -26,8 +26,8 @@ function armazenaDadosQuizz() {
 
 
 
-
-    if (criarTituloQuizz.length < 20 || qtdPerguntas < 3 || qtdNiveis < 2 || isNaN(qtdPerguntas) || isNaN(qtdNiveis) || criarTituloQuizz.length > 65 || criarImgQuizz.length < 5) {
+    // if (criarTituloQuizz.length < 20 || qtdPerguntas < 3 || qtdNiveis < 2 || isNaN(qtdPerguntas) || isNaN(qtdNiveis) || criarTituloQuizz.length > 65 || criarImgQuizz.length < 5) {
+    if (qtdPerguntas < 3 || qtdNiveis < 2 || isNaN(qtdPerguntas) || isNaN(qtdNiveis) || criarTituloQuizz.length < 20 || criarTituloQuizz.length > 65 || criarImgQuizz === ""|| criarImgQuizz === undefined)  {
         alert(
             `Preencha os dados corratamente: 
           O titulo deve ter mais de 20 caracteres
@@ -350,9 +350,7 @@ function reloadPage() {
 }
 
 
-
-
-
+//......................................................................................................
 let quizzes
 let objetoCompleto
 
@@ -391,5 +389,8 @@ function segundaTela() {
     objetoCompleto  //essa variável está com o objeto completinho para você usar e também ja está no onclick, quando clicar em algum quizz, vai executar essa função.
     console.log(objetoCompleto)
 
+}
+
+function renderizarQuizzEscolhido(){
 
 }
