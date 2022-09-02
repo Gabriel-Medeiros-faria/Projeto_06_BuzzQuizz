@@ -11,30 +11,146 @@
 </head>
 
 <body>
-    <header> BuzzQuizz </header>
-    
-    <div class="main">
-        <div class="quizzUsuario">
+    <header class=""> BuzzQuizz </header>
+
+    <div class="main" class="">
+        <div class="quizzUsuario ">
             <div>Você ainda não criou nenhum Quizz ainda</div>
-            <div class="criarQuizz">Criar</div>
+            <div class="criarQuizz" onclick="tela3()">Criar</div>
         </div>
 
-        <div class="quizzServidor">
+        <div class="quizzServidor ">
             <p>Todos os Quizzes</p>
             <div class="quizzesServidor">
                 <ul>
-                    
                 </ul>
-            </div>        
+            </div>
         </div>
     </div>
-    
+
     <!-----------------------------------------------TELA 2-------------------------------------------------->
     <div class="containerTela2 esconder">
+        <div class="paginaQuizz">
+            <div class="bannerQuizz">
+                <p>O quão Potterhead é você?</p>
+            </div>
+            <div class="containerQuizz">
+                <div class="quizz">
+                    <div class="perguntasQuizz">
+                        <div class="topoQuizz">
+                            <p>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</p>
+                        </div>
+                        <div class="imagemQuizz">
+                            <img src="./imgTela2/image 3.png" alt="">
+                            <p>alou</p>
+                        </div>
+                        <div class="imagemQuizz">
+                            <img src="" alt="">
+                            <p></p>
+                        </div>
+                        <div class="imagemQuizz">
+                            <img src="" alt="">
+                            <p></p>
+                        </div>
+                        <div class="imagemQuizz">
+                            <img src="./imgTela2/image 3.png" alt="">
+                            <p>fwaeffgegg</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="quizz">
+                    <div class="perguntasQuizz">
+                        <div class="topoQuizz cor2">
+                            <p>Qual dos objetos abaixo NÃO é uma horcrux?</p>
+                        </div>
+                        <div class="imagemQuizz">
+                            <img src="" alt="">
+                            <p></p>
+                        </div>
+                        <div class="imagemQuizz">
+                            <img src="" alt="">
+                            <p></p>
+                        </div>
+                        <div class="imagemQuizz">
+                            <img src="" alt="">
+                            <p></p>
+                        </div>
+                        <div class="imagemQuizz">
+                            <img src="" alt="">
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="caixaFimDoQuizz">
+                    <div class="fimDoquizz">
+                        <div class="topoFimDoQuizz">
+                            <p>88% de acerto: Você é praticamente um aluno de Hogwarts!</p>
+                        </div>
+                        <div class="finalizarQuizz">
+                            <div class="imagemFinalizarQuizz"></div>
+                            <div class="textoFinalizarQuizz">
+                                Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito de comida e clique
+                                no botão abaixo para usar o vira-tempo e reiniciar este teste.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="reiniciarQuizz">
+                    <p>Reiniciar Quizz</p>
+                </button>
+                <div class="voltarHome">
+                    Voltar pra home
+                </div>
+            </div>
+        </div>
     </div>
-    <!------------------------------------------------------------------------------------------------------->
+    <!-- Página de criação do Quizz -->
+    <div class="tela3 esconder">
+        <header> BuzzQuizz </header>
+
+        <!-- Informações básicas do Quizz -->
+
+        <div class="conteudoTela31">
+            <p> Comece pelo começo</p>
+            <div class="inputs">
+                <input class="tituloQuizz" placeholder='    Título do seu Quizz' type="text">
+                <input class="imagemQuizz" placeholder='    URL da imagem do seu Quizz' type="text">
+                <input class="qtdPerguntas" placeholder='    Quantidade de perguntas do Quizz' type="text">
+                <input class="qtdNiveis" placeholder='    Quantidade de níveis do Quizz' type="text">
+            </div>
+            <div class="prosseguirPerguntas" onclick="armazenaDadosQuizz()">
+                Prosseguir para criar as perguntas
+            </div>
+        </div>
+
+
+        <!-- Perguntas do Quizz -->
+        <div class="conteudoTela32 esconder">
+            <p> Crie suas perguntas</p>
+
+        </div>
+
+        <!-- Níveis do Quizz -->
+        <div class="conteudoTela33 esconder">
+            <p> Agora, decida os níveis</p>
+
+        </div>
+
+        <!-- Tela Quizz Pronto!!! -->
+        <div class="conteudoTela34 esconder">
+            <p> Seu quizz está pronto!</p>
+
+            <div class="acessarQuizz">
+                AcessarQuizz
+            </div>
+
+            <div class="voltarHome" onclick="reloadPage()">Voltar para home</div>
+        </div>
+
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
 </body>
-</html>
 
+</html>
