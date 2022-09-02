@@ -20,15 +20,14 @@ function armazenaDadosQuizz() {
     criarImgQuizz = document.querySelector('.imagemQuizz').value;
     criarqtdPerguntasQuizz = document.querySelector('.qtdPerguntas').value;
     criarqtdNiveisQuizz = document.querySelector('.qtdNiveis').value;
-    console.log(criarTituloQuizz, criarImgQuizz, criarqtdNiveisQuizz, criarqtdPerguntasQuizz);
 
     qtdPerguntas = parseInt(criarqtdPerguntasQuizz);
     qtdNiveis = parseInt(criarqtdNiveisQuizz);
 
 
 
-    console.log(criarTituloQuizz.length, qtdPerguntas, qtdNiveis);
-    if (criarTituloQuizz.length < 20 || qtdPerguntas < 3 || qtdNiveis < 2 ||  isNaN(qtdPerguntas) || isNaN(qtdNiveis) || criarTituloQuizz.length >65) {
+
+    if (criarTituloQuizz.length < 20 || qtdPerguntas < 3 || qtdNiveis < 2 || isNaN(qtdPerguntas) || isNaN(qtdNiveis) || criarTituloQuizz.length > 65 || criarImgQuizz.length < 5) {
         alert(
             `Preencha os dados corratamente: 
           O titulo deve ter mais de 20 caracteres
@@ -52,18 +51,20 @@ function pagina32() {
 
     for (let i = 0; i < criarqtdPerguntasQuizz; i++) {
         elemento1.innerHTML += `
-        <div class="pergTitulo">Pergunta ${i+1} <img class="" src="imgTela2/Vector.png" alt=""></div>
+        <div class="pergTitulo"  onclick="escondePergunta(${i})">Pergunta ${i + 1} <img class="" src="imgTela2/Vector.png" alt=""></div>
+
+        <div class="perguntas${i} esconder">
         <div class="perguntas">
         
         <input class="criarPergunta${i}" placeholder='    Texto da pergunta' type="text">
         <input class="criarCorPergunta${i}" placeholder='    Cor de fundo da pergunta' type="text">
     </div>
-    <div class="respostaCorreta">
+    <div class="divrespostaCorreta${i}">
         <p>Resposta Correta</p>
         <input class="respostaCorreta${i}" placeholder='    Resposta Correta' type="text">
         <input class="imgRespostaCorreta${i}" placeholder='    URL da imagem' type="text">
     </div>
-    <div class="respostasIncorretas">
+    <div class="divRespostasIncorretas${i}">
         <p>Respostas incorretas</p>
         <input class="respostaIncorreta${i}1" placeholder='    Resposta incorreta 1' type="text">
         <input class="imgRespostaIncorreta${i}1" placeholder='    URL da imagem 1' type="text">
@@ -73,7 +74,7 @@ function pagina32() {
 
         <input class="respostaIncorreta${i}3" placeholder='    Resposta incorreta 3' type="text">
         <input class="imgRespostaIncorreta${i}3" placeholder='    URL da imagem 3' type="text">
-    </div>
+    </div></div>
     `
     }
 
@@ -83,70 +84,171 @@ function pagina32() {
 
 }
 
-let tituloPerguntas = [];
-let corPergunta = [];
-let answers = [];
-let objetoQuizz;
-let respostas;
-let respostas1;
-let respostas2;
-let respostas3;
+function escondePergunta(parametro) {
+    for (let i = 0; i < qtdPerguntas; i++) {
+        let item = document.querySelector(`.perguntas${i}`);
+        item.classList.add("esconder");
+        let item1 = document.querySelector(`.perguntas${parametro}`);
+        item1.classList.remove("esconder");
+    }
+}
 
-function armazenarDadosPerguntas() {
+
+/* function conferirDadosPerguntas() {
+    tituloPerguntas = [];
+    respostas = '';
+    respostas1 = '';
+    respostas2 = '';
+    respostas3 = '';
+
     for (let i = 0; i < criarqtdPerguntasQuizz; i++) {
-
-
-        let ele = document.querySelector(`.criarPergunta${[i]}`);
+        verificador = [];
+        ele = document.querySelector(`.criarPergunta${[i]}`);
         tituloPerguntas.push(ele.value);
-        let ele1 = document.querySelector(`.criarCorPergunta${[i]}`);
+        ele1 = document.querySelector(`.criarCorPergunta${[i]}`);
         corPergunta.push(ele1.value);
 
         respostas = document.querySelector(`.respostaCorreta${i}`).value;
-        respostas1 = document.querySelector(`.respostaIncorreta${i}1`).value;   
+        respostas1 = document.querySelector(`.respostaIncorreta${i}1`).value;
         respostas2 = document.querySelector(`.respostaIncorreta${i}2`).value;
-        respostas3 = document.querySelector(`.respostaIncorreta${i}3`).value;  
-
-        console.log(respostas);
-        console.log(respostas1);
-        console.log(respostas2);
-        console.log(respostas3);
-
-        /* if (tituloPerguntas[i].length < 20 || corPergunta[i].length !== 7 || respostas === '' || respostas === null || respostas1 === '' || respostas1 === null) {
-            alert(`Preencha os dados corretamente:
-            O titulo da pergunta deve conter mais de 20 caracteres;
-            A cor de fundo deve começar em "#", seguida de 6 caracteres hexadecimais, ou seja, números ou letras de A a F
-            Textos das respostas: não pode estar vazio;
-            URL das imagens de resposta: deve ter formato de URL;
-            É obrigatória a inserção da resposta correta e de pelo menos 1 resposta errada. Portanto, é permitido existirem perguntas com só 2 ou 3 respostas em vez de 4.
-            `)
-
-            corPergunta = [];
-            return;
-        } */
+        respostas3 = document.querySelector(`.respostaIncorreta${i}3`).value;
 
 
-        let objt1 = [{ text: document.querySelector(`.respostaCorreta${i}`).value, image: document.querySelector(`.imgRespostaCorreta${i}`).value, isCorrectAnswer: true },
-        { text: document.querySelector(`.respostaIncorreta${i}1`).value, image: document.querySelector(`.imgRespostaIncorreta${i}1`).value, isCorrectAnswer: false },
-        { text: document.querySelector(`.respostaIncorreta${i}2`).value, image: document.querySelector(`.imgRespostaIncorreta${i}2`).value, isCorrectAnswer: false },
-        { text: document.querySelector(`.respostaIncorreta${i}3`).value, image: document.querySelector(`.imgRespostaIncorreta${i}3`).value, isCorrectAnswer: false }
+        if (tituloPerguntas[i].length < 10 || tituloPerguntas[i] === null || tituloPerguntas[i] === "" || respostas === "" || respostas1 === "" || respostas === undefined || respostas1 === undefined) {
+            verificador.push("false");
 
+            console.log(verificador);
+        }
 
-        ];
+    }
 
-
-
-        answers.push(objt1);
-        console.log(answers)
-        let objt = { title: tituloPerguntas[i], color: corPergunta[i], answers: answers[i] };
-        questions.push(objt);
-        console.log(questions)
-
+    if (verificador[0] !== undefined) {
+        console.log("preencha corretamente os requisitos")
 
     }
 
 
+    if (verificador[0] === undefined) {
+        console.log("passou nos requisitos")
+
+    }
+
+
+
+
+
+} */
+let tituloPerguntas;
+let corPergunta;
+let tituloPerguntas1 = [];
+let corPergunta1 = [];
+let answers = [];
+let objetoQuizz;
+let contador = 0;
+let ele;
+let ele1;
+let verificador = [];
+let objt1;
+let respostas;
+let respostas1;
+let respostas2;
+let respostas3;
+let imgrespostas;
+let imgrespostas1;
+let imgrespostas2;
+let imgrespostas3;
+
+function armazenarDadosPerguntas() {
+
+    for (let i = 0; i < criarqtdPerguntasQuizz; i++) {
+
+        objt1 = [];
+        ele = document.querySelector(`.criarPergunta${[i]}`);
+        tituloPerguntas = ele.value;
+        ele1 = document.querySelector(`.criarCorPergunta${[i]}`);
+        corPergunta = ele1.value;
+
+        respostas = document.querySelector(`.respostaCorreta${i}`).value;
+        respostas1 = document.querySelector(`.respostaIncorreta${i}1`).value;
+        respostas2 = document.querySelector(`.respostaIncorreta${i}2`).value;
+        respostas3 = document.querySelector(`.respostaIncorreta${i}3`).value;
+
+
+        imgrespostas = document.querySelector(`.imgRespostaCorreta${i}`).value;
+        imgrespostas1 = document.querySelector(`.imgRespostaIncorreta${i}1`).value;
+        imgrespostas2 = document.querySelector(`.imgRespostaIncorreta${i}2`).value;
+        imgrespostas3 = document.querySelector(`.imgRespostaIncorreta${i}3`).value;
+
+        if (tituloPerguntas.length > 20 && corPergunta.length === 7) {
+            tituloPerguntas1.push(tituloPerguntas);
+            corPergunta1.push(corPergunta);
+            if (respostas !== null && respostas !== undefined && respostas !== "" &&
+                respostas1 !== null && respostas1 !== undefined && respostas1 !== "" &&
+                imgrespostas !== null && imgrespostas !== undefined && imgrespostas !== "" &&
+                imgrespostas1 !== null && imgrespostas1 !== undefined && imgrespostas1 !== "") {
+
+                if (respostas2 !== null && respostas2 !== undefined && respostas2 !== "" &&
+                    respostas3 !== null && respostas3 !== undefined && respostas3 !== "" &&
+                    imgrespostas2 !== null && imgrespostas2 !== undefined && imgrespostas2 !== "" &&
+                    imgrespostas3 !== null && imgrespostas3 !== undefined && imgrespostas3 !== ""
+                ) {
+
+                    objt1 = [{ text: document.querySelector(`.respostaCorreta${i}`).value, image: document.querySelector(`.imgRespostaCorreta${i}`).value, isCorrectAnswer: true },
+                    { text: document.querySelector(`.respostaIncorreta${i}1`).value, image: document.querySelector(`.imgRespostaIncorreta${i}1`).value, isCorrectAnswer: false },
+                    { text: document.querySelector(`.respostaIncorreta${i}2`).value, image: document.querySelector(`.imgRespostaIncorreta${i}2`).value, isCorrectAnswer: false },
+                    { text: document.querySelector(`.respostaIncorreta${i}3`).value, image: document.querySelector(`.imgRespostaIncorreta${i}3`).value, isCorrectAnswer: false }];
+                    console.log("puxando 4 respostas");
+                } else if (respostas2 !== null && respostas2 !== undefined && respostas2 !== "" && imgrespostas2 !== null && imgrespostas2 !== undefined && imgrespostas2 !== ""
+                ) {
+                    objt1 = [{ text: document.querySelector(`.respostaCorreta${i}`).value, image: document.querySelector(`.imgRespostaCorreta${i}`).value, isCorrectAnswer: true },
+                    { text: document.querySelector(`.respostaIncorreta${i}1`).value, image: document.querySelector(`.imgRespostaIncorreta${i}1`).value, isCorrectAnswer: false },
+                    { text: document.querySelector(`.respostaIncorreta${i}2`).value, image: document.querySelector(`.imgRespostaIncorreta${i}2`).value, isCorrectAnswer: false }];
+                    console.log("puxando 3 respostas");
+                } else {
+                    objt1 = [{ text: document.querySelector(`.respostaCorreta${i}`).value, image: document.querySelector(`.imgRespostaCorreta${i}`).value, isCorrectAnswer: true },
+                    { text: document.querySelector(`.respostaIncorreta${i}1`).value, image: document.querySelector(`.imgRespostaIncorreta${i}1`).value, isCorrectAnswer: false },
+                    ];
+                    console.log("puxando 2 respostas");
+                }
+
+            } else {
+                alert(
+                    `Voce precisa preencher ao menos a resposta certa e uma resposta incorreta, 
+            assim como suas respectivas imagens em formato URL!`
+                );
+
+                answers = [];
+                questions = [];
+                tituloPerguntas = "";
+                corPergunta = "";
+                tituloPerguntas1 = [];
+                corPergunta1 = [];
+                return;
+            }
+
+
+            answers.push(objt1);
+            let objt = { title: tituloPerguntas1[i], color: corPergunta1[i], answers: answers[i] };
+            questions.push(objt);
+        } else {
+            alert(`
+            O titulo da pergunta deve conter mais de 20 caracteres
+            Sua cor deve ser em formato hexadecimal começando por # e 
+            contendo mais 6 caracteres com letras de "A" a "F" e números de 1 a 9;`
+            )
+            answers = [];
+            questions = [];
+            tituloPerguntas = "";
+            corPergunta = "";
+            tituloPerguntas1 = [];
+            corPergunta1 = [];
+            return;
+        }
+    }
     pagina33();
+
 }
+
 
 function pagina33() {
 
@@ -175,30 +277,73 @@ function pagina33() {
 
 }
 
+let tituloNivel;
+let acertosNivel;
+let imgNivel;
+let descricaoNivel;
+
 let levels = [];
 function finalizarQuizz() {
+    ;
 
     for (let i = 0; i < qtdNiveis; i++) {
-        let objt1 = { title: document.querySelector(`.tituloNivel${i}`).value, image: document.querySelector(`.imgNivel${i}`).value, text: document.querySelector(`.descricaoNivel${i}`).value, minValue: document.querySelector(`.acertoNivel${i}`).value }
-        levels.push(objt1);
-    }
-    console.log(levels);
 
-    objetoQuizz = {title: criarTituloQuizz, image: criarImgQuizz, questions: questions, levels: levels};
-    console.log(objetoQuizz);
+        tituloNivel = document.querySelector(`.tituloNivel${i}`).value;
+        imgNivel = document.querySelector(`.imgNivel${i}`).value;
+        descricaoNivel = document.querySelector(`.descricaoNivel${i}`).value;
+        acertosNivel = document.querySelector(`.acertoNivel${i}`).value;
+
+        if (tituloNivel.length >= 10 && !isNaN(acertosNivel) && acertosNivel >= 0 && acertosNivel <= 100 && imgNivel !== null && imgNivel !== "" && descricaoNivel.length > 30) {
+            let objt1 = {
+                title: document.querySelector(`.tituloNivel${i}`).value, image: document.querySelector(`.imgNivel${i}`).value,
+                text: document.querySelector(`.descricaoNivel${i}`).value, minValue: document.querySelector(`.acertoNivel${i}`).value
+            }
+            levels.push(objt1);
+        } else {
+            alert(`
+            Algo deu errado. O titulo do nível tem quer conter mais de 10 caracteres;
+            % de acerto deve ser um número entre 0 e 100;
+            Imagem tem que ser uma URL;
+            Descrição do Nível tem que conter mais de 30 caracteres
+            `);
+           
+            levels = [];
+            tituloNivel = "";
+            acertosNivel = "";
+            imgNivel = "";
+            descricaoNivel = ""
+            return;
+        }
+
+    }
+
+    objetoQuizz = { title: criarTituloQuizz, image: criarImgQuizz, questions: questions, levels: levels };
     const promessa = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', objetoQuizz);
     promessa.then(deuBom);
     promessa.catch(deuRuim);
 }
+
 function deuBom(parametro) {
     console.log('deu Bom!!')
-    console.log(parametro);
     console.log('o ID do quizz é:' + parametro.data.id)
+    console.log(parametro);
+    alert("Parabéns, seu quizz foi enviado com sucesso para o servidor!! 'o ID do quizz é:" + parametro.data.id);
+    pagina34();
+}
+
+function pagina34() {
+    const elemento = document.querySelector('.conteudoTela33');
+    elemento.classList.add('esconder');
+
+    const elemento1 = document.querySelector('.conteudoTela34');
+    elemento1.classList.remove('esconder');
 }
 
 function deuRuim(parametro) {
     console.log('deu ruim!!')
     console.log(parametro);
+    alert(`Algo deru errado, o servidor não aceitou seu objeto,
+     por favor tente novamente se atentando aos avisos`)
 }
 function reloadPage() {
     location.reload();
@@ -211,14 +356,13 @@ function reloadPage() {
 let quizzes
 let objetoCompleto
 
-function obterQuizzesServidor(){
+function obterQuizzesServidor() {
     let promessa = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes')
     promessa.then(renderizarQuizzes)
 }
 obterQuizzesServidor()
 
-function renderizarQuizzes(resposta){
-    console.log(resposta.data)
+function renderizarQuizzes(resposta) {
     quizzes = resposta.data
 
     objetoCompleto = resposta
@@ -227,9 +371,9 @@ function renderizarQuizzes(resposta){
 
     let item = document.querySelector('ul')
 
-    for(i=0;i<quizzes.length;i++){
+    for (i = 0; i < quizzes.length; i++) {
 
-        item.innerHTML+= `<li onclick="segundaTela(this)">
+        item.innerHTML += `<li onclick="segundaTela(this)">
         <div class="tela-preta"></div>
         <div class="card-quizz">
             <img src="${quizzes[i].image}">
@@ -242,8 +386,7 @@ function renderizarQuizzes(resposta){
     }
 }
 
-function segundaTela(){
-
+function segundaTela() {
 
     objetoCompleto  //essa variável está com o objeto completinho para você usar e também ja está no onclick, quando clicar em algum quizz, vai executar essa função.
     console.log(objetoCompleto)
