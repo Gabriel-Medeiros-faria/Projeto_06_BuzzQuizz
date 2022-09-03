@@ -152,7 +152,7 @@ li img{
     flex-wrap: wrap;
 }
 
-.pergTitulo {
+.pergTitulo, .nomeNivel {
     width: 100%;
     display: flex;
     flex-direction:row;
@@ -160,5 +160,10 @@ li img{
     align-items: center;
     font-size: 21px;
     margin: 50px 0;
+    font-weight: 700;
+}
+
+.conteinerPergunta {
+    width: 600px;
 }
 

@@ -52,7 +52,8 @@ function pagina32() {
 
     for (let i = 0; i < criarqtdPerguntasQuizz; i++) {
         elemento1.innerHTML += `
-        <div class="pergTitulo"  onclick="escondePergunta(${i})">Pergunta ${i + 1} <img class="" src="imgTela2/Vector.png" alt=""></div>
+        <div class="conteinerPergunta" data-identifier="question-form"> 
+        <div class="pergTitulo pergTitulo${i}" data-identifier="expand" onclick="escondePergunta(${i})">Pergunta ${i + 1} <img class="" src="imgTela2/Vector.png" alt=""></div>
 
         <div class="perguntas${i} esconder">
         <div class="perguntas">
@@ -75,7 +76,7 @@ function pagina32() {
 
         <input class="respostaIncorreta${i}3" placeholder='    Resposta incorreta 3' type="text">
         <input class="imgRespostaIncorreta${i}3" placeholder='    URL da imagem 3' type="text">
-    </div></div>
+    </div></div></div>
     `
     }
 
@@ -91,6 +92,8 @@ function escondePergunta(parametro) {
         item.classList.add("esconder");
         let item1 = document.querySelector(`.perguntas${parametro}`);
         item1.classList.remove("esconder");
+        let item2 = document.querySelector(`.pergTitulo${parametro}`);
+        item2.scrollIntoView();
     }
 }
 
@@ -266,8 +269,10 @@ function pagina33() {
 
     for (let i = 0; i < qtdNiveis; i++) {
         elemento1.innerHTML += `
-         <div class="níveis">
-        <p>Nível ${i}</p>
+        <div class="conteinerNivel" data-identifier="level"> </div>
+        <p class="nomeNivel nomeNivel${i}" onclick="escondeNivel(${i})" data-identifier="expand">Nível ${i +1} <img class="" src="imgTela2/Vector.png" alt=""></p>
+         <div class="niveis${i} esconder">
+        
 
         <input class="tituloNivel${i}" placeholder='    Título do nível' type="text">
         <input class="acertoNivel${i}" placeholder='    % de acerto minima' type="text">
@@ -281,6 +286,20 @@ function pagina33() {
     Finalizar Quizz
 </div>`
 
+escondeNivel();
+
+}
+
+function escondeNivel(parametro) {
+    for (let i = 0; i < qtdNiveis; i++) {
+        let item = document.querySelector(`.niveis${i}`);
+        item.classList.add("esconder");
+        let item1 = document.querySelector(`.niveis${parametro}`);
+        item1.classList.remove("esconder");
+        let item2 = document.querySelector(`.nomeNivel${parametro}`);
+        item2.scrollIntoView();
+
+    }
 }
 
 let tituloNivel;
