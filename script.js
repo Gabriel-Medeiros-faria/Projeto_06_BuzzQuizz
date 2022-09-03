@@ -27,7 +27,8 @@ function armazenaDadosQuizz() {
 
 
     // if (criarTituloQuizz.length < 20 || qtdPerguntas < 3 || qtdNiveis < 2 || isNaN(qtdPerguntas) || isNaN(qtdNiveis) || criarTituloQuizz.length > 65 || criarImgQuizz.length < 5) {
-    if (qtdPerguntas < 3 || qtdNiveis < 2 || isNaN(qtdPerguntas) || isNaN(qtdNiveis) || criarTituloQuizz.length < 20 || criarTituloQuizz.length > 65 || criarImgQuizz === ""|| criarImgQuizz === undefined)  {
+       
+    if (qtdPerguntas < 3 || qtdNiveis < 2 || isNaN(qtdPerguntas) || isNaN(qtdNiveis) || criarTituloQuizz.length < 20 || criarTituloQuizz.length > 65 || criarImgQuizz === ""|| criarImgQuizz === undefined || !checkUrl(criarImgQuizz) ) {
         alert(
             `Preencha os dados corratamente: 
           O titulo deve ter mais de 20 caracteres
@@ -179,26 +180,31 @@ function armazenarDadosPerguntas() {
         imgrespostas2 = document.querySelector(`.imgRespostaIncorreta${i}2`).value;
         imgrespostas3 = document.querySelector(`.imgRespostaIncorreta${i}3`).value;
 
-        if (tituloPerguntas.length > 20 && corPergunta.length === 7) {
+        checkUrl(imgrespostas);
+        checkUrl(imgrespostas1);
+
+       /*  imgrespostas !== null && imgrespostas !== undefined && imgrespostas !== "" &&
+        imgrespostas1 !== null && imgrespostas1 !== undefined && imgrespostas1 !== "" && */
+
+        if (tituloPerguntas.length > 20 && corPergunta.length === 7 && corPergunta[0] === "#") {
             tituloPerguntas1.push(tituloPerguntas);
             corPergunta1.push(corPergunta);
             if (respostas !== null && respostas !== undefined && respostas !== "" &&
                 respostas1 !== null && respostas1 !== undefined && respostas1 !== "" &&
-                imgrespostas !== null && imgrespostas !== undefined && imgrespostas !== "" &&
-                imgrespostas1 !== null && imgrespostas1 !== undefined && imgrespostas1 !== "") {
+                checkUrl(imgrespostas) && checkUrl(imgrespostas1)) {
 
                 if (respostas2 !== null && respostas2 !== undefined && respostas2 !== "" &&
                     respostas3 !== null && respostas3 !== undefined && respostas3 !== "" &&
-                    imgrespostas2 !== null && imgrespostas2 !== undefined && imgrespostas2 !== "" &&
-                    imgrespostas3 !== null && imgrespostas3 !== undefined && imgrespostas3 !== ""
-                ) {
+                    checkUrl(imgrespostas2) && checkUrl(imgrespostas3))
+                     /* imgrespostas2 !== null && imgrespostas2 !== undefined && imgrespostas2 !== "" &&
+                imgrespostas3 !== null && imgrespostas3 !== undefined && imgrespostas3 !== "" */ {
 
                     objt1 = [{ text: document.querySelector(`.respostaCorreta${i}`).value, image: document.querySelector(`.imgRespostaCorreta${i}`).value, isCorrectAnswer: true },
                     { text: document.querySelector(`.respostaIncorreta${i}1`).value, image: document.querySelector(`.imgRespostaIncorreta${i}1`).value, isCorrectAnswer: false },
                     { text: document.querySelector(`.respostaIncorreta${i}2`).value, image: document.querySelector(`.imgRespostaIncorreta${i}2`).value, isCorrectAnswer: false },
                     { text: document.querySelector(`.respostaIncorreta${i}3`).value, image: document.querySelector(`.imgRespostaIncorreta${i}3`).value, isCorrectAnswer: false }];
                     console.log("puxando 4 respostas");
-                } else if (respostas2 !== null && respostas2 !== undefined && respostas2 !== "" && imgrespostas2 !== null && imgrespostas2 !== undefined && imgrespostas2 !== ""
+                } else if (respostas2 !== null && respostas2 !== undefined && respostas2 !== "" && checkUrl(imgrespostas2)
                 ) {
                     objt1 = [{ text: document.querySelector(`.respostaCorreta${i}`).value, image: document.querySelector(`.imgRespostaCorreta${i}`).value, isCorrectAnswer: true },
                     { text: document.querySelector(`.respostaIncorreta${i}1`).value, image: document.querySelector(`.imgRespostaIncorreta${i}1`).value, isCorrectAnswer: false },
@@ -281,7 +287,7 @@ let tituloNivel;
 let acertosNivel;
 let imgNivel;
 let descricaoNivel;
-
+let acertosNivel2=[];
 let levels = [];
 function finalizarQuizz() {
     ;
@@ -293,7 +299,9 @@ function finalizarQuizz() {
         descricaoNivel = document.querySelector(`.descricaoNivel${i}`).value;
         acertosNivel = document.querySelector(`.acertoNivel${i}`).value;
 
-        if (tituloNivel.length >= 10 && !isNaN(acertosNivel) && acertosNivel >= 0 && acertosNivel <= 100 && imgNivel !== null && imgNivel !== "" && descricaoNivel.length > 30) {
+        acertosNivel2.push(acertosNivel);
+
+        if (tituloNivel.length >= 10 && !isNaN(acertosNivel) && acertosNivel >= 0 && acertosNivel <= 100 && checkUrl(imgNivel) && descricaoNivel.length > 30) {
             let objt1 = {
                 title: document.querySelector(`.tituloNivel${i}`).value, image: document.querySelector(`.imgNivel${i}`).value,
                 text: document.querySelector(`.descricaoNivel${i}`).value, minValue: document.querySelector(`.acertoNivel${i}`).value
@@ -305,8 +313,10 @@ function finalizarQuizz() {
             % de acerto deve ser um número entre 0 e 100;
             Imagem tem que ser uma URL;
             Descrição do Nível tem que conter mais de 30 caracteres
+            A % de acerto de ao menos 1 nível tem que ser igual a 0;
             `);
            
+            acertosNivel2 = [];
             levels = [];
             tituloNivel = "";
             acertosNivel = "";
@@ -349,6 +359,16 @@ function reloadPage() {
     location.reload();
 }
 
+function checkUrl(string) {
+    try {
+     let url = new URL(string)
+     console.log("Valid URL!")
+     return true;
+   } catch(err) {
+       console.log("Invalid URL!")
+       return false;
+   }
+ }
 
 //......................................................................................................
 let quizzes
