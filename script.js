@@ -1,4 +1,3 @@
-
 let criarTituloQuizz;
 let criarImgQuizz;
 let criarqtdPerguntasQuizz;
@@ -97,51 +96,6 @@ function escondePergunta(parametro) {
     }
 }
 
-
-/* function conferirDadosPerguntas() {
-    tituloPerguntas = [];
-    respostas = '';
-    respostas1 = '';
-    respostas2 = '';
-    respostas3 = '';
-
-    for (let i = 0; i < criarqtdPerguntasQuizz; i++) {
-        verificador = [];
-        ele = document.querySelector(`.criarPergunta${[i]}`);
-        tituloPerguntas.push(ele.value);
-        ele1 = document.querySelector(`.criarCorPergunta${[i]}`);
-        corPergunta.push(ele1.value);
-
-        respostas = document.querySelector(`.respostaCorreta${i}`).value;
-        respostas1 = document.querySelector(`.respostaIncorreta${i}1`).value;
-        respostas2 = document.querySelector(`.respostaIncorreta${i}2`).value;
-        respostas3 = document.querySelector(`.respostaIncorreta${i}3`).value;
-
-
-        if (tituloPerguntas[i].length < 10 || tituloPerguntas[i] === null || tituloPerguntas[i] === "" || respostas === "" || respostas1 === "" || respostas === undefined || respostas1 === undefined) {
-            verificador.push("false");
-
-            console.log(verificador);
-        }
-
-    }
-
-    if (verificador[0] !== undefined) {
-        console.log("preencha corretamente os requisitos")
-
-    }
-
-
-    if (verificador[0] === undefined) {
-        console.log("passou nos requisitos")
-
-    }
-
-
-
-
-
-} */
 let tituloPerguntas;
 let corPergunta;
 let tituloPerguntas1 = [];
