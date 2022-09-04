@@ -364,9 +364,9 @@ function renderizarQuizzes(resposta) {
 
     for (i = 0; i < quizzes.length; i++) {
 
-        item.innerHTML += `<li onclick="segundaTela(this)">
+        item.innerHTML += `<li>
         <div class="tela-preta"></div>
-        <div class="card-quizz">
+        <div class="card-quizz" onclick="segundaTela(${quizzes[i]})">
             <img src="${quizzes[i].image}">
             <div class="texto-imagem">
             ${quizzes[i].title} 
@@ -377,10 +377,9 @@ function renderizarQuizzes(resposta) {
     }
 }
 
-function segundaTela() {
+function segundaTela(parametro) {
 
-    objetoCompleto  //essa variável está com o objeto completinho para você usar e também ja está no onclick, quando clicar em algum quizz, vai executar essa função.
-    console.log(objetoCompleto)
+    console.log(parametro);
 
 }
 
