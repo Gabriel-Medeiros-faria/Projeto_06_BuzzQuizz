@@ -344,8 +344,8 @@ function checkUrl(string) {
  }
 
 //......................................................................................................
-let quizzes
-let objetoCompleto
+let quizzes;
+let objetoCompleto;
 
 function obterQuizzesServidor() {
     let promessa = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes')
@@ -364,9 +364,9 @@ function renderizarQuizzes(resposta) {
 
     for (i = 0; i < quizzes.length; i++) {
 
-        item.innerHTML += `<li>
+        item.innerHTML += `<li onclick="segundaTela(${i})">
         <div class="tela-preta"></div>
-        <div class="card-quizz" onclick="segundaTela(${quizzes[i]})">
+        <div class="card-quizz">
             <img src="${quizzes[i].image}">
             <div class="texto-imagem">
             ${quizzes[i].title} 
@@ -377,9 +377,11 @@ function renderizarQuizzes(resposta) {
     }
 }
 
+let quizzClicado;
 function segundaTela(parametro) {
 
-    console.log(parametro);
+    quizzClicado = (quizzes[parametro]);
+    console.log(quizzClicado);
 
 }
 
