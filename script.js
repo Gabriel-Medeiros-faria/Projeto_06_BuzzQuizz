@@ -306,13 +306,30 @@ function finalizarQuizz() {
     promessa.catch(deuRuim);
 }
 
+let quizzCriado = [];
+let quizzesUsuario=[];
+let listaQuizzes123;
+let listaQuizzes1234;
+
 function deuBom(parametro) {
+
+    const quizzUsuario = parametro;
+    const quizzSerializado = JSON.stringify(quizzUsuario);
+
+    localStorage.setItem("listaQuizzes", quizzSerializado);
+
+    listaQuizzes123 = localStorage.getItem("listaQuizzes");
+    quizzesUsuario.push(JSON.parse(listaQuizzes123)) ;
+
+
     console.log('deu Bom!!')
     console.log('o ID do quizz é:' + parametro.data.id)
-    console.log(parametro);
+    quizzCriado = parametro.data;
+    console.log('quizz criado é: ' + quizzCriado)
     alert("Parabéns, seu quizz foi enviado com sucesso para o servidor!! 'o ID do quizz é:" + parametro.data.id);
     pagina34();
 }
+
 
 function pagina34() {
     const elemento = document.querySelector('.conteudoTela33');
@@ -320,6 +337,8 @@ function pagina34() {
 
     const elemento1 = document.querySelector('.conteudoTela34');
     elemento1.classList.remove('esconder');
+
+
 }
 
 function deuRuim(parametro) {
@@ -360,13 +379,13 @@ function renderizarQuizzes(resposta) {
 
 
 
-    let item = document.querySelector('ul')
+    let item = document.querySelector('ul');
 
     for (i = 0; i < quizzes.length; i++) {
 
         item.innerHTML += `<li onclick="segundaTela(${i})">
         <div class="tela-preta"></div>
-        <div class="card-quizz">
+        <div class="card-quizz" data-identifier="quizz-card">
             <img src="${quizzes[i].image}">
             <div class="texto-imagem">
             ${quizzes[i].title} 
@@ -377,14 +396,191 @@ function renderizarQuizzes(resposta) {
     }
 }
 
+function embaralhar() {
+    return Math.random() - 0.5;
+}
+
 let quizzClicado;
+
 function segundaTela(parametro) {
 
-    quizzClicado = (quizzes[parametro]);
-    console.log(quizzClicado);
+let cabeca = document.querySelector('.cabeca');
+cabeca.scrollIntoView();
+
+    let item = document.querySelector(".main");
+    item.classList.add("esconder");
+    let item2 = document.querySelector(".tela2");
+    item2.classList.remove("esconder");
+
+    quizzClicado = quizzes[parametro];
+
+    if (parametro === 123) {
+        quizzClicado = [];
+        quizzClicado = quizzCriado;
+    }
+  
+
+    item2.innerHTML += `
+    <div class="titleQuiz">
+    <p> ${quizzClicado.title}</p>
+
+    <div class="escura"></div>
+    <div class="imagemQuizz" style="background-image:url('${quizzClicado.image}');   background-size: cover"></div>
+    
+    </div>
+    
+    `
+
+    let perguntas = quizzClicado.questions;
+    let respostas123 = perguntas.answers;
+    
+
+    for (let i = 0; i< perguntas.length; i++) {
+        quizzClicado.questions[i].answers.sort(embaralhar);
+        item2.innerHTML += `
+        <div class="pergunta${i}" data-identifier="question">
+            <div class="perguntaTitulo" style="background-color: ${perguntas[i].color}">
+                <p> ${perguntas[i].title}</p>
+            </div>
+        </div>
+        `     
+        for (let j=0; j < quizzClicado.questions[i].answers.length; j++ ){
+            let item3 = document.querySelector(`.pergunta${i}`);
+            item3.innerHTML += `
+            <div class="perg${i} perg${i}resp${j} perguntaResposta ${perguntas[i].answers[j].isCorrectAnswer}" data-identifier="answer" onclick="verificarResposta('.perg${i}resp${j}' , '.perg${i}', '.pergunta${i+1}')"> 
+            <img src="${perguntas[i].answers[j].image}" alt="">
+            <p>${perguntas[i].answers[j].text} </p>
+            </div>
+            `
+        }
+    }
+}
+
+let respSelecionada;
+let todasAsRespostas;
+let acertos = 0;
+let erros = 0;
+
+function verificarResposta(resposta, pergunta, proxperg) {
+    console.log(resposta);
+    console.log(pergunta);
+    respSelecionada = document.querySelector(`${resposta}`);
+    todasAsRespostas = document.querySelectorAll(`${pergunta}`);
+    setTimeout(scroll, 2000, proxperg);
+    
+    for (let i = 0; i < todasAsRespostas.length; i++) {
+        todasAsRespostas[i].classList.add("palida");
+        respSelecionada.classList.remove("palida");
+    }
+    if (respSelecionada.classList.contains("true")) {
+        console.log ('resposta correta');
+        respSelecionada.classList.add('certo');
+        acertos++;
+    } else {
+        console.log ("respsta incorreta");
+        respSelecionada.classList.add('errado');
+        erros++;
+    }
+    respSelecionada.parentElement.innerHTML += `
+    <div class="invisivel"></div>
+    `
+    let jogadas = acertos + erros;
+    if (jogadas === quizzClicado.questions.length) {
+        let item10 = acertos/jogadas;
+        if (acertos === 0) {
+            porcentagemAcertos = 0;
+        }
+        else {
+            porcentagemAcertos = item10*100;
+        }
+        
+        setTimeout(fimdeQuizz, 2000);
+    }
+    
+}
+function scroll (parametro) {
+    let item = document.querySelector(`${parametro}`);
+    item.scrollIntoView();
+    
+}
+
+let porcAcerto = [];
+let porcentagemAcertos;
+let porcentagemAcertos1;
+let nivelAlcancado;
+
+function fimdeQuizz() {
+    Number(porcentagemAcertos);
+    porcentagemAcertos1 = Number(porcentagemAcertos.toFixed(0));
+    for (let i = 0; i < quizzClicado.levels.length; i++) {
+        porcAcerto.push (quizzClicado.levels[i].minValue);
+        porcAcerto.sort(function(a, b){return a-b});
+
+
+        if (porcentagemAcertos1 >= porcAcerto[i]) {
+            nivelAlcancado = i;
+        }
+
+    }
+
+    let item2 = document.querySelector(".tela2");
+    item2.innerHTML += `
+    <div class="nivelFinal" data-identifier="quizz-result">
+        <div class="tituloNivel">${quizzClicado.levels[nivelAlcancado].title} </div>
+        <div class="nivelItems">
+            <img src="${quizzClicado.levels[nivelAlcancado].image}" alt="">
+            <div class="nivelTexto">${quizzClicado.levels[nivelAlcancado].text} </div>
+        </div>
+    </div>
+
+    <div class="botoesFinal">
+        <div class="reiniciarQuizz" onclick="resetQuizz()"> Reiniciar Quizz </div>
+        <div class="voltarHome" onclick="reloadPage()"> Voltar para o início </div>
+    </div>
+    `
+   
+    scrollDown();
+}
+
+function resetQuizz() {
+    let item = document.querySelector('.cabeca');
+    item.scrollIntoView();
+    for (let i = 0; i < todasAsRespostas.length; i++) {
+        todasAsRespostas[i].classList.remove("palida");
+    }
+    let item1 = document.querySelectorAll('.certo');
+    let item2 = document.querySelectorAll('.errado');
+    for (let i=0; i <item1.length; i++) {
+        item1[i].classList.remove('certo');
+    }
+    for (let i=0; i <item2.length; i++) {
+        item2[i].classList.remove('errado');
+    }
+    let item3 = document.querySelectorAll('.invisivel');
+    for (let i = 0; i < item3.length; i++) {
+        item3[i].remove();
+    }
+    let item4 = document.querySelectorAll('.palida');
+    for (let i = 0; i < item4.length; i++) {
+        item4[i].classList.remove('palida');
+    }
+
+    let item5 = document.querySelector('.nivelFinal');
+    let item6 = document.querySelector('.botoesFinal');
+    item5.remove();
+    item6.remove();
+    porcAcerto = [];
+    porcentagemAcertos = 0;
+    porcentagemAcertos1 = 0;
+    nivelAlcancado = 0;
+    respSelecionada;
+    todasAsRespostas = [];
+    acertos = 0;
+    erros = 0;
 
 }
 
-function renderizarQuizzEscolhido(){
-
+function scrollDown() {
+    let item1 = document.querySelector(".nivelFinal");
+    item1.scrollIntoView();
 }
